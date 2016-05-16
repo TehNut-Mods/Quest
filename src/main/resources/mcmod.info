@@ -1,0 +1,16 @@
+[
+{
+  "modid": "questboard",
+  "name": "Quest Board",
+  "description": "A signboard that generates in villages to provide quests.",
+  "version": "${version}",
+  "mcversion": "1.9",
+  "url": "",
+  "updateUrl": "",
+  "authorList": [ "TehNut" ],
+  "credits": "",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
