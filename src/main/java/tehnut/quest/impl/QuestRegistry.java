@@ -18,13 +18,8 @@ public class QuestRegistry implements IQuestRegistry {
     }
 
     @Override
-    public IQuest register(ResourceLocation key, IQuest quest) {
-        return registry.put(key, quest);
-    }
-
-    @Override
     public IQuest register(IQuest quest) {
-        return register(quest.getRegistryName(), quest);
+        return registry.put(quest.getRegistryName(), quest);
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface IQuest {
 
     ITextComponent getTitle();
 
-    ITextComponent getDisplayText();
+    ITextComponent getBody();
 
     ItemStack[] getRewards();
 

@@ -58,11 +58,11 @@ public class Quest implements IQuest {
     }
 
     @Override
-    public ITextComponent getDisplayText() {
+    public ITextComponent getBody() {
         return displayText;
     }
 
-    public IQuest setDisplayText(ITextComponent textComponent) {
+    public IQuest setBody(ITextComponent textComponent) {
         this.displayText = textComponent;
         return this;
     }
@@ -92,7 +92,7 @@ public class Quest implements IQuest {
         NBTTagCompound tagCompound = new NBTTagCompound();
         tagCompound.setString(REGISTRY_NAME, getRegistryName().toString());
         tagCompound.setString(TITLE, ITextComponent.Serializer.componentToJson(getTitle()));
-        tagCompound.setString(DISPLAY, ITextComponent.Serializer.componentToJson(getDisplayText()));
+        tagCompound.setString(DISPLAY, ITextComponent.Serializer.componentToJson(getBody()));
         tagCompound.setString(QUEST_TYPE, getType().name());
         NBTTagList rewardList = new NBTTagList();
         for (ItemStack reward : rewards)
