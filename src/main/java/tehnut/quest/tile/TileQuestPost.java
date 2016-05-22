@@ -4,6 +4,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.nbt.NBTUtil;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import tehnut.quest.api.IQuest;
@@ -16,6 +19,7 @@ import java.util.List;
 public class TileQuestPost extends TileEntity implements IQuestProvider {
 
     public static final String AVAILABLE_QUESTS = "availableQuests";
+    public static final String QUEST  = "quest";
 
     private List<IQuest> availableQuests;
 
@@ -29,12 +33,25 @@ public class TileQuestPost extends TileEntity implements IQuestProvider {
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        this.availableQuests = readNBT(compound);
+        this.availableQuests = readNBT(compound.getCompoundTag(QUEST));
     }
 
     @Override
     public void writeToNBT(NBTTagCompound compound) {
-        compound.setTag("quest", writeNBT());
+        compound.setTag(QUEST, writeNBT());
+    }
+
+    @Override
+    public Packet getDescriptionPacket() {
+        NBTTagCompound nbt = new NBTTagCompound();
+        writeToNBT(nbt);
+        return new SPacketUpdateTileEntity(getPos(), -999, nbt);
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity pkt) {
+        super.onDataPacket(net, pkt);
+        readFromNBT(pkt.getNbtCompound());
     }
 
     // IQuestProvider

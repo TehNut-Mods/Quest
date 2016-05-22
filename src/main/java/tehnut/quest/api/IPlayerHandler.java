@@ -17,7 +17,7 @@ public interface IPlayerHandler {
     IPlayerQuestData getPlayerQuestData(EntityPlayer player);
 
     /**
-     * Retrieves a list of active {@link IQuest}'s for the provided player.
+     * Retrieves a Mutable list of active {@link IQuest}'s for the provided player.
      *
      * @param player - EntityPlayer to obtain quest data for.
      * @return - A list of active quests for the provided player.

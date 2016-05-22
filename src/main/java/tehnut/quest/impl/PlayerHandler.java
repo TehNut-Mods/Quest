@@ -1,5 +1,6 @@
 package tehnut.quest.impl;
 
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import tehnut.quest.api.IPlayerHandler;
@@ -10,7 +11,7 @@ import java.util.*;
 
 public class PlayerHandler implements IPlayerHandler {
 
-    private final Map<UUID, IPlayerQuestData> playerQuestData = new HashMap<UUID, IPlayerQuestData>();
+    public Map<UUID, IPlayerQuestData> playerQuestData;
 
     @Override
     public IPlayerQuestData getPlayerQuestData(EntityPlayer player) {
@@ -43,6 +44,10 @@ public class PlayerHandler implements IPlayerHandler {
     public int completeQuest(EntityPlayer player, IQuest quest) {
         getActiveQuests(player).remove(quest);
         getCompletedQuests(player).add(quest.getRegistryName());
-        return ((PlayerQuestData) getPlayerQuestData(player)).increaseCompletedAmount(1);
+        return getPlayerQuestData(player).getCompletedQuestCount();
+    }
+
+    public Map<UUID, IPlayerQuestData> getPlayerQuestData() {
+        return ImmutableMap.copyOf(playerQuestData);
     }
 }

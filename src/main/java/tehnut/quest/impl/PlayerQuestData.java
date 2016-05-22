@@ -10,7 +10,7 @@ import java.util.UUID;
 
 public class PlayerQuestData implements IPlayerQuestData {
 
-    private final UUID uuid;
+    private UUID uuid;
     private List<IQuest> activeQuests;
     private List<ResourceLocation> completedQuests;
     private IQuest primaryQuest;
@@ -18,8 +18,8 @@ public class PlayerQuestData implements IPlayerQuestData {
 
     public PlayerQuestData(UUID uuid, List<IQuest> activeQuests, List<ResourceLocation> completedQuests) {
         this.uuid = uuid;
-        this.activeQuests = activeQuests;
-        this.completedQuests = completedQuests;
+        this.activeQuests = new ArrayList<IQuest>(activeQuests);
+        this.completedQuests = new ArrayList<ResourceLocation>(completedQuests);
     }
 
     @Override
@@ -29,6 +29,9 @@ public class PlayerQuestData implements IPlayerQuestData {
 
     @Override
     public IQuest getPrimaryQuest() {
+        if (primaryQuest == null && !activeQuests.isEmpty())
+            primaryQuest = activeQuests.get(0);
+
         return primaryQuest;
     }
 
@@ -45,7 +48,7 @@ public class PlayerQuestData implements IPlayerQuestData {
 
     @Override
     public int getCompletedQuestCount() {
-        return completedQuestCount;
+        return completedQuests.size();
     }
 
     @Override

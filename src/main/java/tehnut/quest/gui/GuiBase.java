@@ -2,6 +2,7 @@ package tehnut.quest.gui;
 
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.GuiScreen;
+import tehnut.quest.util.TextHelper;
 
 import java.util.List;
 
@@ -14,11 +15,11 @@ public class GuiBase extends GuiScreen {
 
     @Override
     public void drawHoveringText(List<String> textLines, int x, int y) {
-        super.drawHoveringText(textLines, x, y);
+        super.drawHoveringText(TextHelper.localizeAll(textLines), x, y);
     }
 
     @Override
     public void drawHoveringText(List<String> textLines, int x, int y, FontRenderer font) {
-        super.drawHoveringText(textLines, x, y, font);
+        super.drawHoveringText(TextHelper.localizeAll(textLines), x, y, font);
     }
 }

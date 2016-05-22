@@ -14,7 +14,8 @@ public class QuestPacketHandler {
 
     public static void init() {
         int id = 0;
-        INSTANCE.registerMessage(MessageAbandonQuest.class, MessageAbandonQuest.class, ++id, Side.SERVER);
+        INSTANCE.registerMessage(MessageAbandonQuest.Handler.class, MessageAbandonQuest.class, ++id, Side.SERVER);
+        INSTANCE.registerMessage(MessageAcceptQuest.Handler.class, MessageAcceptQuest.class, ++id, Side.SERVER);
     }
 
     public static void sendToAllAround(IMessage message, TileEntity te, int range) {

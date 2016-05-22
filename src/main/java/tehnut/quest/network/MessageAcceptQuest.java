@@ -9,20 +9,20 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import tehnut.quest.api.IQuest;
 import tehnut.quest.api.QuestAPI;
 
-public class MessageAbandonQuest implements IMessage {
+public class MessageAcceptQuest implements IMessage {
 
     private ResourceLocation questKey;
 
-    public MessageAbandonQuest() {
+    public MessageAcceptQuest() {
 
     }
 
-    public MessageAbandonQuest(ResourceLocation questKey) {
+    public MessageAcceptQuest(ResourceLocation questKey) {
         this.questKey = questKey;
     }
 
-    public MessageAbandonQuest(IQuest quest) {
-        this(quest.getRegistryName());
+    public MessageAcceptQuest(IQuest quest) {
+        this.questKey = quest.getRegistryName();
     }
 
     @Override
@@ -35,11 +35,12 @@ public class MessageAbandonQuest implements IMessage {
         ByteBufUtils.writeUTF8String(buf, questKey.toString());
     }
 
-    public static class Handler implements IMessageHandler<MessageAbandonQuest, IMessage> {
+    public static class Handler implements IMessageHandler<MessageAcceptQuest, IMessage> {
+
         @Override
-        public IMessage onMessage(MessageAbandonQuest message, MessageContext ctx) {
+        public IMessage onMessage(MessageAcceptQuest message, MessageContext ctx) {
             IQuest quest = QuestAPI.questRegistry.get(message.questKey);
-            QuestAPI.playerHandler.getActiveQuests(ctx.getServerHandler().playerEntity).remove(quest);
+            QuestAPI.playerHandler.getActiveQuests(ctx.getServerHandler().playerEntity).add(quest);
             return null;
         }
     }
